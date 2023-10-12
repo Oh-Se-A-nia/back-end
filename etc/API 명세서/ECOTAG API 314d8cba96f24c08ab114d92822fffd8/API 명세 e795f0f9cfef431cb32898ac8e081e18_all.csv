@@ -1,0 +1,9 @@
+﻿기능,HTTP 메서드,API Path,Request,Response
+로그인,POST,/user/sign-in,"로그인 - Request (https://www.notion.so/Request-f144589ef523410b8f7922a899c1a3d2?pvs=21) ","로그인 - Response (https://www.notion.so/Response-b516c8e8060a4815bdfe963f6ce9defe?pvs=21) "
+지역별 최다 쓰레기 조회,GET,/map/most-trash,"지역별 쓰레기 조회 - Request (https://www.notion.so/Request-f54b1d6a522640508395513f87e1adeb?pvs=21) ","지역별 쓰레기 조회 - Response (https://www.notion.so/Response-27d24740beca42b79f36dd92ff94d241?pvs=21) "
+게시 글 작성,POST,/community/uploading,"게시 글 작성 - Request (https://www.notion.so/Request-0eb48e3d910b483d8b3f51d0d01a43d2?pvs=21) ","게시 글 작성 - Response (https://www.notion.so/Response-3bf37cb274bb4cd5ad69bd41005d4b0d?pvs=21) "
+기여도,GET,/contribution,"기여도 - Request (https://www.notion.so/Request-12e86c8eb07f4e90a0f409c0e8d32117?pvs=21) ","기여도 - Response (https://www.notion.so/Response-24c0601996784a7596e8e9a25a86577a?pvs=21) "
+커뮤니티 전체 글,GET,/community/entirety,"전체 글 조회 - Request (https://www.notion.so/Request-91e8f7484d684c5d943bbdf8106be06c?pvs=21) ","전체 글 조회 - Response (https://www.notion.so/Response-bef107aaa00f45b29968fc4cbf313004?pvs=21) "
+커뮤니티 글 상세,GET,/community/detail,"상세 글 조회 - Request (https://www.notion.so/Request-444592f1d6cd474c9cbe362dc353b7af?pvs=21) ","상세 글 조회 - Response (https://www.notion.so/Response-b269754d094547f38d2255119bb8c19f?pvs=21) "
+마이페이지 조회,GET,/my-page,"조회 - Request (https://www.notion.so/Request-157226f7ad77439cb6149b8e493d3e28?pvs=21) ","사진 조회 - Response (https://www.notion.so/Response-8168eac97eba470d9f348cff799ea336?pvs=21) 게시 글 조회 - Response (https://www.notion.so/Response-b70764cfa1d942a1b3bda561e1ce2ba5?pvs=21) "
+이전 문제 해결 방법,GET,/community/previous-problem,"해결 방법 조회 - Request (https://www.notion.so/Request-b2614f434f974500ab9190c839c6cee1?pvs=21) ","해결 방법 조회 - Response (https://www.notion.so/Response-bd056093efe149c4961c322b6b7f7d8a?pvs=21) "

@@ -1,0 +1,18 @@
+﻿이름,API 분류,태그
+로그인 - Response,API Response,[계정] 로그인
+로그인 - Request,API Request,[계정] 로그인
+지역별 쓰레기 조회 - Response,API Response,[지도] 쓰레기 조회
+지역별 쓰레기 조회 - Request,API Response,[지도] 쓰레기 조회
+게시 글 작성 - Request,API Response,[커뮤니티] 게시글 작성
+게시 글 작성 - Response,API Response,[커뮤니티] 게시글 작성
+기여도 - Request,API Response,[기여도] 조회
+기여도 - Response,API Response,[기여도] 조회
+전체 글 조회 - Request,API Response,[커뮤니티] 전체글 조회
+전체 글 조회 - Response,API Response,[커뮤니티] 전체글 조회
+상세 글 조회 - Request,API Response,[커뮤니티] 상세 글 조회
+상세 글 조회 - Response,API Response,[커뮤니티] 상세 글 조회
+조회 - Request,API Response,[마이페이지] 마이페이지
+게시 글 조회 - Response,API Response,[마이페이지] 마이페이지
+사진 조회 - Response,API Response,[마이페이지] 마이페이지
+해결 방법 조회 - Request,API Response,[커뮤니티] 이전 문제 해결 방법 제시
+해결 방법 조회 - Response,API Response,[커뮤니티] 이전 문제 해결 방법 제시
