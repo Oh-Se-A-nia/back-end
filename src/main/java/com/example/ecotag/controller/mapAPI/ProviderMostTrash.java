@@ -1,4 +1,4 @@
-package com.example.ecotag.controller;
+package com.example.ecotag.controller.mapAPI;
 
 import com.example.ecotag.model.TrashVO;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Map API", description = "지도 메뉴에서 쓰레기 정보를 제공해 주는 API")
 @RestController
 @RequestMapping("/api/map")
-public class MapMenuController {
+public class ProviderMostTrash {
 
     private TrashVO trashVO;
 
