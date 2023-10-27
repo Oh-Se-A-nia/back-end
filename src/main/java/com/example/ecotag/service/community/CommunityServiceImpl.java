@@ -121,7 +121,7 @@ public class CommunityServiceImpl implements CommunityService {
 
         for (Comment comment : comments) {
             CommentFormVO oneComment = new CommentFormVO(comment.getPost().getId(),
-                    comment.getUser().getUserId(), comment.getDetail());
+                    comment.getUser().getUserId(), comment.getDetail(), comment.getId());
 
             commentList.add(oneComment);
         }
@@ -152,6 +152,17 @@ public class CommunityServiceImpl implements CommunityService {
             return new ResponseEntity("user id or post id is invalidation", HttpStatus.BAD_REQUEST);
         }
 
+        return new ResponseEntity("success", HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity countCommentLikes(long commentId) {
+        //Optional<Comment> comment = commentRepository.findById(commentId);
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("comment not found"));
+
+        comment.setLikes(comment.getLikes() + 1);
+        
         return new ResponseEntity("success", HttpStatus.OK);
     }
 }

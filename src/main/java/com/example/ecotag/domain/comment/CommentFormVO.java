@@ -12,5 +12,6 @@ public class CommentFormVO {
     private long postId;
     private String userId;
     private String commentDetail;
+    private long commentId;
 
 }

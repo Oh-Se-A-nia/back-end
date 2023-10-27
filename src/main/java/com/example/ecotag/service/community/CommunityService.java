@@ -13,4 +13,6 @@ public interface CommunityService {
     ResponseEntity providePostingDetail(long postId);
     ResponseEntity putComment(CommentFormVO commentFormVO);
 
+    ResponseEntity countCommentLikes(long commentId);
+
 }

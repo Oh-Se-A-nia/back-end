@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 
 @Table(name = "comments")
 @Getter
+@Setter
 @Builder
 @DynamicUpdate
 @DynamicInsert

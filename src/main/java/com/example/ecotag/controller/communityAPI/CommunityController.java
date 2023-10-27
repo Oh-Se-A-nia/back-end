@@ -43,4 +43,10 @@ public class CommunityController {
     public ResponseEntity putComment(@RequestBody CommentFormVO commentFormVO) {
         return communityService.putComment(commentFormVO);
     }
+
+    @Parameter(name = "댓글 좋아요 API", description = "댓글에 좋아요 버튼을 눌러 좋아요 수를 기록할 수 있도록 하는 API")
+    @GetMapping("/likes/{comment_id}")
+    public ResponseEntity putCommentLikes(@PathVariable("comment_id") long commentId) {
+        return communityService.countCommentLikes(commentId);
+    }
 }
