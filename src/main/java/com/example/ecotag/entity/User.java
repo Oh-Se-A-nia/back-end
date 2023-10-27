@@ -6,15 +6,17 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+@Getter
 @Table(name = "users")
 @Builder
 @DynamicUpdate
 @DynamicInsert
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class User {
 
+    @Column(name = "access_token")
     private String accessToken;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +26,9 @@ public class User {
     private String nickname;
 
     @Lob
-    private byte[] profile;
+    private String profile;
 
+    public User() {
+
+    }
 }
