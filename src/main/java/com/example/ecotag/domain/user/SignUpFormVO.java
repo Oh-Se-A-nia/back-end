@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SignInFormVO {
+public class SignUpFormVO {
 
     private String accessToken;
     private String userId;
