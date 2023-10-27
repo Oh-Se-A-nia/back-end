@@ -1,10 +1,12 @@
 package com.example.ecotag.service.contribution;
 
+import com.example.ecotag.domain.contribution.TotalContributionVO;
 import com.example.ecotag.domain.contribution.UserContributionRepository;
 import com.example.ecotag.domain.user.UserRepository;
 import com.example.ecotag.entity.User;
 import com.example.ecotag.entity.UserContribution;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,5 +63,10 @@ public class ContributionServiceImpl implements ContributionService {
         }
 
         return true;
+    }
+
+    @Override
+    public ResponseEntity<TotalContributionVO> provideTotalContribution(String userId) {
+        return null;
     }
 }
