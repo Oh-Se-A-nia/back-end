@@ -22,7 +22,7 @@ public class ProviderMostTrash {
     @Parameter(name = "location", description = "가장 많은 쓰레기 타입을 알고 싶은 지역명")
     @GetMapping("/most_trash/{location}")
     public ResponseEntity<Trash> returnTrashType(@RequestParam String location) {
-        return trashService.findMostTrash(location)
+        return trashService.findMostTrash(location);
     }
 
 }
