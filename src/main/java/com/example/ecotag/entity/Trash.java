@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
 @Table(name = "trashes")
+@Getter
 @Builder
 @DynamicUpdate
 @DynamicInsert
@@ -17,6 +18,7 @@ public class Trash {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "trash_id")
     private Integer Id;
 
     @Lob

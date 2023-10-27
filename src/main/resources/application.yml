@@ -32,3 +32,8 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      force-response: true

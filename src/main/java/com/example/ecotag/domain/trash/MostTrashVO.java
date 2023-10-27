@@ -6,15 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MostTrashTypeDTO {
+public class MostTrashVO {
 
-    private int cigaretteCount;
-    private int disposableCount;
-    private int foodWasteCount;
-    private int maskCount;
-    private int illegalDumpingCount;
+    private String mostCommonTrashType;
 
 }
