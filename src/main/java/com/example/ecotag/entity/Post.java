@@ -32,11 +32,11 @@ public class Post {
     private Timestamp creationTime;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private User postUser;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "trashId")
+    @JoinColumn(name = "trash_id")
     private Trash postTrash;
     
 }

@@ -17,10 +17,10 @@ public class Trash {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private Integer Id;
 
     @Lob
-    private byte[] trashPicture;
+    private String trashPicture;
 
     private String trashLocation;
 

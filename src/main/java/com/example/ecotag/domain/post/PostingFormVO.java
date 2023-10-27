@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostingFormVO {
+
     private String postDetail;
     private String userId;
-    private Trash trash;
+    private TrashVO trash;
+
 }

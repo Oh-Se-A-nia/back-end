@@ -1,5 +1,6 @@
 package com.example.ecotag.domain.trash;
 
+import com.example.ecotag.entity.Trash;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,9 +10,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TrashVO {
 
-    private long trashId;
-    private byte[] trashPicture;
+    private String trashPicture;
     private String trashLocation;
     private String trashType;
 
+
+    public Trash toEntity() {
+        Trash trash = Trash.builder()
+                .trashLocation(trashLocation)
+                .trashType(trashType)
+                .trashPicture(trashPicture)
+                .build();
+
+        return trash;
+    }
 }
