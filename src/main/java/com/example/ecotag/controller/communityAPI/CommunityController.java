@@ -8,6 +8,7 @@ import com.example.ecotag.service.community.CommunityService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class CommunityController {
 
     @Parameter(name = "글 작성 API", description = "사진을 찍어 쓰레기 사진, 쓰레기 타입, 쓰레기 장소를 저장해 글을 쓰는 API")
     @PostMapping("/uploading/posting")
-    public ResponseEntity<String> posting(@RequestBody PostingFormVO postingFormVO){
+    public ResponseEntity<String> posting(@RequestBody PostingFormVO postingFormVO) {
         return communityService.post(postingFormVO);
     }
 
@@ -38,8 +39,8 @@ public class CommunityController {
     }
 
     @Parameter(name = "댓글 작성 API", description = "하나의 글에 댓글을 작성하는 API")
-    @GetMapping("/uploading/comment")
-    public ResponseEntity putComment(CommentFormVO commentFormVO) {
+    @PostMapping("/uploading/comment")
+    public ResponseEntity putComment(@RequestBody CommentFormVO commentFormVO) {
         return communityService.putComment(commentFormVO);
     }
 }

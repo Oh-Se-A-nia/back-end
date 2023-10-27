@@ -131,6 +131,27 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public ResponseEntity putComment(CommentFormVO commentFormVO) {
-        return null;
+        Optional<User> user = userRepository.findById(commentFormVO.getUserId());
+        Optional<Post> post = communityRepository.findById(commentFormVO.getPostId());
+
+        if (user.isPresent() && post.isPresent()) {
+            Optional<Comment> comment = Optional.ofNullable(Comment.builder()
+                    .detail(commentFormVO.getCommentDetail())
+                    .user(user.get())
+                    .post(post.get())
+                    .build());
+
+            if (comment.isPresent()) {
+                commentRepository.save(comment.get());
+
+            } else {
+                return new ResponseEntity("comment detail value is invalidation", HttpStatus.BAD_REQUEST);
+            }
+
+        } else {
+            return new ResponseEntity("user id or post id is invalidation", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity("success", HttpStatus.OK);
     }
 }
