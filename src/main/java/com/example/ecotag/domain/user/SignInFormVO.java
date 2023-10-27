@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class SignInFormVO {
 
     private String accessToken;
+
 }

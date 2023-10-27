@@ -16,7 +16,7 @@ public class PostingController {
     private final PostService postService;
 
     @PostMapping("/uploading")
-    public ResponseEntity posting(@RequestBody PostingFormVO postingFormVO){
+    public ResponseEntity<ResponseEntity> posting(@RequestBody PostingFormVO postingFormVO){
         return ResponseEntity.ok(postService.post(postingFormVO));
     }
 }

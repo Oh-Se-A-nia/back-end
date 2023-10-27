@@ -19,9 +19,9 @@ public class User {
     @Column(name = "access_token")
     private String accessToken;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private String id;
+    @Id
+    @Column(name = "user_id", nullable = false)
+    private String userId;
 
     private String nickname;
 

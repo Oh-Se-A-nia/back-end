@@ -1,5 +1,6 @@
 package com.example.ecotag.controller.mapAPI;
 
+import com.example.ecotag.domain.trash.MostTrashVO;
 import com.example.ecotag.entity.Trash;
 import com.example.ecotag.service.trash.TrashService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -18,7 +19,7 @@ public class ProviderMostTrash {
 
     @Parameter(name = "location", description = "가장 많은 쓰레기 타입을 알고 싶은 지역명")
     @GetMapping("/most_trash/{location}")
-    public ResponseEntity returnTrashType(@PathVariable("location") String location) {
+    public ResponseEntity<MostTrashVO> returnTrashType(@PathVariable("location") String location) {
         return trashService.returnMostTrash(location);
     }
 
