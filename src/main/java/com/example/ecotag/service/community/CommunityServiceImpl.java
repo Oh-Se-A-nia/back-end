@@ -143,6 +143,7 @@ public class CommunityServiceImpl implements CommunityService {
 
             if (comment.isPresent()) {
                 commentRepository.save(comment.get());
+                contributionService.pushUserCommentContribution(commentFormVO.getUserId());
 
             } else {
                 return new ResponseEntity("comment detail value is invalidation", HttpStatus.BAD_REQUEST);
@@ -162,7 +163,7 @@ public class CommunityServiceImpl implements CommunityService {
                 .orElseThrow(() -> new IllegalArgumentException("comment not found"));
 
         comment.setLikes(comment.getLikes() + 1);
-        
+
         return new ResponseEntity("success", HttpStatus.OK);
     }
 }
