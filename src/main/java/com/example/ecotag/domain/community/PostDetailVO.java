@@ -1,12 +1,13 @@
 package com.example.ecotag.domain.community;
 
+import com.example.ecotag.domain.comment.CommentFormVO;
 import com.example.ecotag.domain.trash.TrashVO;
 import com.example.ecotag.domain.user.UserInformationVO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -17,6 +18,6 @@ public class PostDetailVO {
     private String postDetail;
     private TrashVO trash;
     private UserInformationVO user;
-    private ArrayList<CommentFormVO> comments;
+    private List<CommentFormVO> comments;
 
 }

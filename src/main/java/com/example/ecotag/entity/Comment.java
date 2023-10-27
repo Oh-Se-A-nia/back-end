@@ -1,9 +1,6 @@
 package com.example.ecotag.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -13,7 +10,8 @@ import javax.persistence.*;
 
 import java.sql.Timestamp;
 
-@Table(name = "comment")
+@Table(name = "comments")
+@Getter
 @Builder
 @DynamicUpdate
 @DynamicInsert
@@ -24,7 +22,8 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "comment_id")
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
@@ -35,11 +34,14 @@ public class Comment {
     private Post post;
 
     @Lob
+    @Column(name ="comment_detail")
     private String detail;
 
     @CreationTimestamp
+    @Column(name = "comment_creation_time")
     private Timestamp creationTime;
 
+    @Column(name = "comment_likes")
     private int likes;
 
 }

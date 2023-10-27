@@ -1,8 +1,14 @@
 package com.example.ecotag.service.community;
 
+import com.example.ecotag.domain.comment.CommentFormVO;
+import com.example.ecotag.domain.comment.CommentRepository;
 import com.example.ecotag.domain.community.*;
+import com.example.ecotag.domain.trash.TrashVO;
+import com.example.ecotag.domain.user.UserInformationVO;
 import com.example.ecotag.domain.user.UserRepository;
+import com.example.ecotag.entity.Comment;
 import com.example.ecotag.entity.Post;
+import com.example.ecotag.entity.Trash;
 import com.example.ecotag.entity.User;
 import com.example.ecotag.service.contribution.ContributionServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +30,7 @@ public class CommunityServiceImpl implements CommunityService {
     private final CommunityRepository communityRepository;
     private final UserRepository userRepository;
     private final ContributionServiceImpl contributionService;
+    private final CommentRepository commentRepository;
 
     @Override
     public ResponseEntity post(PostingFormVO postingFormVO) {
@@ -46,6 +53,7 @@ public class CommunityServiceImpl implements CommunityService {
             } else {
                 return new ResponseEntity("post is empty", HttpStatus.BAD_GATEWAY);
             }
+
         } else {
             return new ResponseEntity("user is not present", HttpStatus.BAD_REQUEST);
         }
@@ -55,22 +63,23 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public ResponseEntity providePostingList() {
-        List<Post> posts = communityRepository.findAll();
-
-        if(posts.isEmpty()){
-            return new ResponseEntity("post is empty", HttpStatus.OK);
-        }
+        Optional<List<Post>> posts = Optional.ofNullable(communityRepository.findAll());
 
         List<TotalPostingListVO> postList = new ArrayList<>();
         TotalPostingListVO onePost;
 
-        for (Post post : posts) {
-            onePost = new TotalPostingListVO(post.getId(),
-                    post.getPostTrash().getTrashPicture(),
-                    post.getPostTrash().getTrashType(),
-                    post.getPostTrash().getTrashLocation());
+        if (posts.isPresent()) {
+            for (Post post : posts.get()) {
+                onePost = new TotalPostingListVO(post.getId(),
+                        post.getPostTrash().getTrashPicture(),
+                        post.getPostTrash().getTrashType(),
+                        post.getPostTrash().getTrashLocation());
 
-            postList.add(onePost);
+                postList.add(onePost);
+            }
+
+        } else {
+            return new ResponseEntity("post is empty", HttpStatus.OK);
         }
 
         return new ResponseEntity(postList, HttpStatus.OK);
@@ -78,7 +87,46 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public ResponseEntity providePostingDetail(long postId) {
-        return null;
+        Optional<Post> post = communityRepository.findById(postId);
+
+        if (post.isPresent()) {
+
+            UserInformationVO postingUser = changeUserEntityForm(post.get().getPostUser());
+            TrashVO postedTrash = changeTrashEntityForm(post.get().getPostTrash());
+            List<CommentFormVO> comments = changeCommentEntityForm(commentRepository.findByPostId(postId));
+
+            PostDetailVO postDetail = new PostDetailVO(postId,
+                    post.get().getPostDetail(), postedTrash,
+                    postingUser, comments);
+
+            return new ResponseEntity(postDetail, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity("post is not exist, check one more post id", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    private UserInformationVO changeUserEntityForm(User userEntity) {
+        return new UserInformationVO(userEntity.getUserId(),
+                userEntity.getNickname(), userEntity.getProfile());
+    }
+
+    private TrashVO changeTrashEntityForm(Trash trashEntity) {
+        return new TrashVO(trashEntity.getTrashPicture(),
+                trashEntity.getTrashLocation(), trashEntity.getTrashType());
+    }
+
+    private List<CommentFormVO> changeCommentEntityForm(List<Comment> comments) {
+        List<CommentFormVO> commentList = new ArrayList<>();
+
+        for (Comment comment : comments) {
+            CommentFormVO oneComment = new CommentFormVO(comment.getPost().getId(),
+                    comment.getUser().getUserId(), comment.getDetail());
+
+            commentList.add(oneComment);
+        }
+
+        return commentList;
     }
 
     @Override

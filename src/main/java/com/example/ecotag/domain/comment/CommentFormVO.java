@@ -1,4 +1,4 @@
-package com.example.ecotag.domain.community;
+package com.example.ecotag.domain.comment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
