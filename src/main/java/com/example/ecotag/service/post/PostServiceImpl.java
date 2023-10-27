@@ -41,10 +41,12 @@ public class PostServiceImpl implements PostService {
             if (newPost.isPresent()) {
                 postRepository.save(newPost.get());
 
-                contributionService.pushUserPostingContribution(postingFormVO.getUserId());
+                if(!contributionService.pushUserPostingContribution(postingFormVO.getUserId())) {
+                    return new ResponseEntity("contribution skill is unactive", HttpStatus.BAD_GATEWAY);
+                }
 
             } else {
-                return new ResponseEntity("post is empty", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity("post is empty", HttpStatus.BAD_GATEWAY);
             }
         } else {
             return new ResponseEntity("user is not present", HttpStatus.BAD_REQUEST);

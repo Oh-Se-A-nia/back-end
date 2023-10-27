@@ -20,7 +20,7 @@ public class ContributionServiceImpl implements ContributionService {
 
 
     @Override
-    public void pushUserPostingContribution(String userId) {
+    public boolean pushUserPostingContribution(String userId) {
         Optional<User> user = userRepository.findById(userId);
 
         if (user.isPresent()) {
@@ -31,7 +31,35 @@ public class ContributionServiceImpl implements ContributionService {
 
             if (userContribution.isPresent()) {
                 userContributionRepository.save(userContribution.get());
+            } else {
+                return false;
             }
+        } else {
+            return false;
         }
+
+        return true;
+    }
+
+    @Override
+    public boolean pushUserCommentContribution(String userId) {
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isPresent()) {
+            Optional<UserContribution> userContribution = Optional.ofNullable(UserContribution.builder()
+                    .userId(user.get())
+                    .commentCount(1)
+                    .build());
+
+            if (userContribution.isPresent()) {
+                userContributionRepository.save(userContribution.get());
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+        return true;
     }
 }

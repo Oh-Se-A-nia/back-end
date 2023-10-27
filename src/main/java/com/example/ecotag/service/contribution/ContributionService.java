@@ -4,6 +4,8 @@ import com.example.ecotag.domain.post.PostingFormVO;
 
 public interface ContributionService {
 
-    void pushUserPostingContribution(String userId);
+    boolean pushUserPostingContribution(String userId);
+
+    boolean pushUserCommentContribution(String userId);
 
 }
