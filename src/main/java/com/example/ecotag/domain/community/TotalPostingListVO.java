@@ -8,8 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TotalPostingListVO {
+
     private long postId;
     private String postPicture;
     private String trashType;
     private String trashLocation;
+
 }

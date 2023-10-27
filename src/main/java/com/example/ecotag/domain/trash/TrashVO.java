@@ -14,7 +14,6 @@ public class TrashVO {
     private String trashLocation;
     private String trashType;
 
-
     public Trash toEntity() {
         Trash trash = Trash.builder()
                 .trashLocation(trashLocation)

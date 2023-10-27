@@ -1,9 +1,6 @@
 package com.example.ecotag.service.community;
 
-import com.example.ecotag.domain.community.CommentFormVO;
-import com.example.ecotag.domain.community.CommunityRepository;
-import com.example.ecotag.domain.community.PostingFormVO;
-import com.example.ecotag.domain.community.TotalPostingListVO;
+import com.example.ecotag.domain.community.*;
 import com.example.ecotag.domain.user.UserRepository;
 import com.example.ecotag.entity.Post;
 import com.example.ecotag.entity.User;
@@ -14,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -40,7 +39,7 @@ public class CommunityServiceImpl implements CommunityService {
             if (newPost.isPresent()) {
                 communityRepository.save(newPost.get());
 
-                if(!contributionService.pushUserPostingContribution(postingFormVO.getUserId())) {
+                if (!contributionService.pushUserPostingContribution(postingFormVO.getUserId())) {
                     return new ResponseEntity("contribution skill is unactive", HttpStatus.BAD_GATEWAY);
                 }
 
@@ -55,8 +54,26 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public ResponseEntity<TotalPostingListVO> providePostingList() {
-        return null;
+    public ResponseEntity providePostingList() {
+        List<Post> posts = communityRepository.findAll();
+
+        if(posts.isEmpty()){
+            return new ResponseEntity("post is empty", HttpStatus.OK);
+        }
+
+        List<TotalPostingListVO> postList = new ArrayList<>();
+        TotalPostingListVO onePost;
+
+        for (Post post : posts) {
+            onePost = new TotalPostingListVO(post.getId(),
+                    post.getPostTrash().getTrashPicture(),
+                    post.getPostTrash().getTrashType(),
+                    post.getPostTrash().getTrashLocation());
+
+            postList.add(onePost);
+        }
+
+        return new ResponseEntity(postList, HttpStatus.OK);
     }
 
     @Override

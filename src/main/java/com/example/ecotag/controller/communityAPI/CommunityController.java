@@ -1,6 +1,7 @@
 package com.example.ecotag.controller.communityAPI;
 
 import com.example.ecotag.domain.community.CommentFormVO;
+import com.example.ecotag.domain.community.PostDetailVO;
 import com.example.ecotag.domain.community.PostingFormVO;
 import com.example.ecotag.domain.community.TotalPostingListVO;
 import com.example.ecotag.service.community.CommunityService;
@@ -32,13 +33,13 @@ public class CommunityController {
 
     @Parameter(name = "글 상세 조회 API", description = "글의 상세 내용을 확인하는 API")
     @GetMapping("/detail_post/{post_id}")
-    public ResponseEntity<TotalPostingListVO> returnDetailPosting(@PathVariable("post_id") long postId) {
+    public ResponseEntity<PostDetailVO> returnDetailPosting(@PathVariable("post_id") long postId) {
         return communityService.providePostingDetail(postId);
     }
 
     @Parameter(name = "댓글을 작성 API", description = "하나의 글에 댓글을 작성하는 API")
     @GetMapping("/uploading/comment")
-    public ResponseEntity<TotalPostingListVO> putComment(CommentFormVO commentFormVO) {
+    public ResponseEntity putComment(CommentFormVO commentFormVO) {
         return communityService.putComment(commentFormVO);
     }
 }
