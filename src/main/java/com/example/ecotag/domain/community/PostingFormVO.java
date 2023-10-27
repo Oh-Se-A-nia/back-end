@@ -1,7 +1,6 @@
-package com.example.ecotag.domain.post;
+package com.example.ecotag.domain.community;
 
 import com.example.ecotag.domain.trash.TrashVO;
-import com.example.ecotag.entity.Trash;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

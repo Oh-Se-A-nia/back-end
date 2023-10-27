@@ -1,12 +1,11 @@
-package com.example.ecotag.service.post;
+package com.example.ecotag.service.community;
 
-import com.example.ecotag.domain.post.PostRepository;
-import com.example.ecotag.domain.post.PostingFormVO;
-import com.example.ecotag.domain.trash.TrashRepository;
-import com.example.ecotag.domain.trash.TrashVO;
+import com.example.ecotag.domain.community.CommentFormVO;
+import com.example.ecotag.domain.community.CommunityRepository;
+import com.example.ecotag.domain.community.PostingFormVO;
+import com.example.ecotag.domain.community.TotalPostingListVO;
 import com.example.ecotag.domain.user.UserRepository;
 import com.example.ecotag.entity.Post;
-import com.example.ecotag.entity.Trash;
 import com.example.ecotag.entity.User;
 import com.example.ecotag.service.contribution.ContributionServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +20,9 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class PostServiceImpl implements PostService {
+public class CommunityServiceImpl implements CommunityService {
 
-    private final PostRepository postRepository;
+    private final CommunityRepository communityRepository;
     private final UserRepository userRepository;
     private final ContributionServiceImpl contributionService;
 
@@ -39,7 +38,7 @@ public class PostServiceImpl implements PostService {
                     .build());
 
             if (newPost.isPresent()) {
-                postRepository.save(newPost.get());
+                communityRepository.save(newPost.get());
 
                 if(!contributionService.pushUserPostingContribution(postingFormVO.getUserId())) {
                     return new ResponseEntity("contribution skill is unactive", HttpStatus.BAD_GATEWAY);
@@ -53,5 +52,20 @@ public class PostServiceImpl implements PostService {
         }
 
         return new ResponseEntity("success", HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<TotalPostingListVO> providePostingList() {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity providePostingDetail(long postId) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity putComment(CommentFormVO commentFormVO) {
+        return null;
     }
 }
