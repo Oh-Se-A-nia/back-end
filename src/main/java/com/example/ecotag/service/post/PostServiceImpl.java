@@ -8,6 +8,7 @@ import com.example.ecotag.domain.user.UserRepository;
 import com.example.ecotag.entity.Post;
 import com.example.ecotag.entity.Trash;
 import com.example.ecotag.entity.User;
+import com.example.ecotag.service.contribution.ContributionServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,21 +25,24 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
-    private final TrashRepository trashRepository;
+    private final ContributionServiceImpl contributionService;
 
     @Override
     public ResponseEntity post(PostingFormVO postingFormVO) {
         Optional<User> user = userRepository.findById(postingFormVO.getUserId());
 
-        if(user.isPresent()){
+        if (user.isPresent()) {
             Optional<Post> newPost = Optional.ofNullable(Post.builder()
                     .postDetail(postingFormVO.getPostDetail())
                     .postUser(user.get())
                     .postTrash(postingFormVO.getTrash().toEntity())
                     .build());
 
-            if(newPost.isPresent()){
+            if (newPost.isPresent()) {
                 postRepository.save(newPost.get());
+
+                contributionService.pushUserPostingContribution(postingFormVO.getUserId());
+
             } else {
                 return new ResponseEntity("post is empty", HttpStatus.BAD_REQUEST);
             }
