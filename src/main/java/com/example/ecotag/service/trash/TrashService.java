@@ -4,6 +4,5 @@ import com.example.ecotag.domain.trash.TrashVO;
 import org.springframework.http.ResponseEntity;
 
 public interface TrashService {
-
-    ResponseEntity put (TrashVO trashVO);
+    ResponseEntity findMostTrash(String location);
 }
