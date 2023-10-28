@@ -22,6 +22,7 @@ public class ProviderContribution {
     @Parameter(name = "기여도 API", description = "전체 기여도, 유저의 기여도를 각각 제공하는 API")
     @GetMapping("/{user_id}")
     public ResponseEntity<TotalContributionVO> returnContributionData(@PathVariable("user_id") String userId) {
+        System.out.printf("user id is %s", userId);
         return contributionService.provideTotalContribution(userId);
     }
 

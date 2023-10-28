@@ -6,11 +6,14 @@ import com.example.ecotag.domain.user.UserRepository;
 import com.example.ecotag.entity.User;
 import com.example.ecotag.entity.UserContribution;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -67,6 +70,30 @@ public class ContributionServiceImpl implements ContributionService {
 
     @Override
     public ResponseEntity<TotalContributionVO> provideTotalContribution(String userId) {
-        return null;
+        List<UserContribution> contribution = userContributionRepository.findAll();
+        Optional<User> user = userRepository.findById(userId);
+
+        long totalPicture = (contribution.stream()
+                .filter(userContribution -> userContribution.getCommentCount() == 0)
+                .count());
+
+        long myPicture = (contribution.stream()
+                .filter(userContribution -> userContribution.getCommentCount() == 0
+                        && userContribution.getUserId().equals(user.get()))
+                .count());
+
+        long totalComment = (contribution.stream()
+                .filter(userContribution -> userContribution.getPostingCount() == 0)
+                .count());
+
+        long myComment = (contribution.stream()
+                .filter(userContribution -> userContribution.getPostingCount() == 0
+                        && userContribution.getUserId().equals(user.get()))
+                .count());
+
+        TotalContributionVO totalContribution =
+                new TotalContributionVO(totalPicture, myPicture, totalComment, myComment);
+
+        return new ResponseEntity<>(totalContribution, HttpStatus.OK);
     }
 }

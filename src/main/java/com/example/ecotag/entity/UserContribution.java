@@ -8,6 +8,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 
 @Getter
+@Setter
 @Entity
 @Builder
 @DynamicUpdate
