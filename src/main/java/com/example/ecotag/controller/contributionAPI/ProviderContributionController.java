@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Contribution API", description = "전체 기여도와 자신의 기여도를 확인해 볼 수 있는 API")
 @RestController
 @RequestMapping("/api/contribution")
 @RequiredArgsConstructor
-public class ProviderContribution {
+public class ProviderContributionController {
 
     private final ContributionService contributionService;
 
-    @Parameter(name = "기여도 API", description = "전체 기여도, 유저의 기여도를 각각 제공하는 API")
+    @Tag(name="기여도를 확인하는 API")
+    @Parameter(name = "user id", description = "현재 로그인해 있는 유저의 id")
     @GetMapping("/{user_id}")
     public ResponseEntity<TotalContributionVO> returnContributionData(@PathVariable("user_id") String userId) {
         System.out.printf("user id is %s", userId);
