@@ -5,6 +5,7 @@ import com.example.ecotag.domain.community.CommunityRepository;
 import com.example.ecotag.domain.community.TotalPostingListVO;
 import com.example.ecotag.domain.myPage.MyPageFormVO;
 import com.example.ecotag.domain.trash.TrashRepository;
+import com.example.ecotag.domain.trash.TrashVO;
 import com.example.ecotag.domain.user.UserRepository;
 import com.example.ecotag.entity.Comment;
 import com.example.ecotag.entity.Post;
@@ -53,6 +54,7 @@ public class MyPageServiceImpl implements MyPageService {
     private ResponseEntity provideRecentComment() {
         List<Comment> commentList = commentRepository.findAll();
         Optional<User> user = userRepository.findById(myPage.getUserId());
+
         if (commentList.isEmpty()) {
             return new ResponseEntity("this user's active is notting", HttpStatus.OK);
         }
@@ -66,21 +68,53 @@ public class MyPageServiceImpl implements MyPageService {
                 .collect(Collectors.toList());
 
         List<TotalPostingListVO> posts = new ArrayList<>();
+        List<Long> postId = new ArrayList<>();
 
         for (Comment comment : commentList) {
             Post postWithComment = comment.getPost();
+            if (postId.contains(postWithComment.getId())) {
+                continue;
+            }
+
             Trash trashOfPost = postWithComment.getPostTrash();
 
             TotalPostingListVO post = new TotalPostingListVO(postWithComment.getId(),
                     trashOfPost.getTrashPicture(), trashOfPost.getTrashType(), trashOfPost.getTrashLocation());
 
+
             posts.add(post);
+            postId.add(postWithComment.getId());
         }
 
         return new ResponseEntity(posts, HttpStatus.OK);
     }
 
     private ResponseEntity providerRecentPicture() {
-        return null;
+        List<Post> postList = communityRepository.findAll();
+        Optional<User> user = userRepository.findById(myPage.getUserId());
+
+        if (postList.isEmpty()) {
+            return new ResponseEntity("this user's active is notting", HttpStatus.OK);
+        }
+        if (!user.isPresent()) {
+            return new ResponseEntity("user id is invaild data", HttpStatus.BAD_REQUEST);
+        }
+
+        postList = postList.stream()
+                .filter(post -> post.getPostUser().equals(user.get()))
+                .sorted(Comparator.comparing(post -> post.getCreationTime(), Comparator.reverseOrder()))
+                .collect(Collectors.toList());
+
+        List<TrashVO> trashes = new ArrayList<>();
+
+        for (Post post : postList) {
+            Trash trashEntity = post.getPostTrash();
+            TrashVO trash = new TrashVO(trashEntity.getTrashPicture(),
+                    trashEntity.getTrashLocation(), trashEntity.getTrashType());
+
+            trashes.add(trash);
+        }
+
+        return new ResponseEntity(trashes, HttpStatus.OK);
     }
 }

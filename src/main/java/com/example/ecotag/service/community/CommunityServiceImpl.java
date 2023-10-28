@@ -121,7 +121,7 @@ public class CommunityServiceImpl implements CommunityService {
 
         for (Comment comment : comments) {
             CommentFormVO oneComment = new CommentFormVO(comment.getPost().getId(),
-                    comment.getUser().getUserId(), comment.getDetail(), comment.getId());
+                    comment.getUser().getUserId(), comment.getDetail());
 
             commentList.add(oneComment);
         }
